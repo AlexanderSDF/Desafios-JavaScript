@@ -5,35 +5,24 @@
 
 //!VARIABLES-----------------------------------------------------
 let empresa = "Kamui Camisetas"
-let disp1 = 30 /* camiseta ArgTit */
-let disp2 = 20 /* camiseta ArgSup */
-let disp3 = 50 /* camiseta BocTit */
-let disp4 = 50 /* camiseta RivTit */
-let disp5 = 10 /* camiseta RemTit */
-let camiseta1 = "Camiseta titular de Argentina" 
-let camiseta2 = "Camiseta suplente de Argentina" 
-let camiseta3 = "Camiseta titular de Boca Juniors"
-let camiseta4 = "Camiseta titular de River Plate" 
-let camiseta5 = "Camiseta titular de Real Madrid" 
+let disp1 = 30; /* camiseta ArgTit */
+let disp2 = 20; /* camiseta ArgSup */
+let disp3 = 50;/* camiseta BocTit */
+let disp4 = 50; /* camiseta RivTit */
+let disp5 = 10; /* camiseta RemTit */
+let camiseta1 = "titular de Argentina"; 
+let camiseta2 = "suplente de Argentina"; 
+let camiseta3 = "titular de Boca Juniors";
+let camiseta4 = "titular de River Plate"; 
+let camiseta5 = "titular de Real Madrid"; 
 
 
 //!CONSTANTES Y FUNCIONES----------------------------------------
-function suma(num1, num2) {
-  resultado = num1 + num2; 
-  return resultado;
-}
 function resta(num1, num2) {
-  resultado = num1 - num2; 
-  return resultado;
+  nuevoDisp = num1 - num2; 
+  return nuevoDisp;
 }
-function multiplicación(num1, num2) {
-  resultado = num1 * num2; 
-  return resultado;
-}
-function suma(num1, num2) {
-  resultado = num1 / num2; 
-  return resultado;
-}
+
 //!CÓDIGO--------------------------------------------------------
 let nombre = "Fernando Torres"
 alert(`Buen dia ${nombre}`)
@@ -47,10 +36,11 @@ let opcion = prompt(`Bienvenido ${nombre}
   6: Otro
   N: Para salir.
 `)
-while (opcion.toLowerCase() !="N"){
-  switch (opcion.toLowerCase()) {
+while (opcion !="Esc"){
+  switch (opcion) {
     case "1":
-      prompt(`Usted ha seleccionado la opcion ${camiseta1}`);
+      alert(`Usted ha seleccionado la opcion camiseta ${camiseta1}`);
+      let cantCompra = 10;
       break;
     case "2":
       prompt(`Usted ha seleccionado la opcion ${camiseta2}`);

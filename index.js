@@ -4,30 +4,31 @@
 //!En base a la cantidad disponible en stock devuelve al cliente un msj.
 
 //!VARIABLES-----------------------------------------------------
+
 let empresa = "Kamui Camisetas";
-let disp1 = 30; /* camiseta ArgTit */
-let disp2 = 20; /* camiseta ArgSup */
-let disp3 = 50; /* camiseta BocTit */
-let disp4 = 50; /* camiseta RivTit */
-let disp5 = 10; /* camiseta RemTit */
-let camiseta1 = "titular de Argentina";
-let camiseta2 = "suplente de Argentina";
-let camiseta3 = "titular de Boca Juniors";
-let camiseta4 = "titular de River Plate";
-let camiseta5 = "titular de Real Madrid";
+let iva = 1.25;
+let camisetaArgentina = 17000;
+let camisetaBoca = 16000;
+let camisetaRiver = 16000;
+let camisetaReal = 20000;
+let bucle = false;
 
 //!CONSTANTES Y FUNCIONES----------------------------------------
-function resta(num1, num2) {
-	nuevoDisp = num1 - num2;
-	return nuevoDisp;
+
+function precioTotalCamisetas(camiseta, cantidad) {
+	alert(`El precio total es: $${camiseta * cantidad}`);
 }
 
 //!CÓDIGO--------------------------------------------------------
 let nombre = "Fernando Torres";
 
-let opcion = 2;
-
-while (opcion) {
+while (bucle === true) {
+	let camiseta = prompt(`Que camiseta quieres comprar:
+	1. Selección Argentina Titular -- $${camisetaArgentina},00
+	2. Club Atlético Boca Juniors  -- $${camisetaBoca},00
+	3. Club Atlético River Plate   -- $${camisetaRiver},00
+	4. Real Madrid Futbol Club     -- $${camisetaReal},00
+	5. Otros.`);
 	if (opcion == 1) {
 		alert(`Usted ha seleccionado la camiseta`);
 	} else if (opcion == 2) {

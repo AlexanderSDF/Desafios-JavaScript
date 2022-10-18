@@ -61,3 +61,5 @@ while (bucle === true) {
 }
 let final = confirm(`Quiere el precio final?`);
 precioFinal(resArgentina, resBoca, resRiver, resRealM);
+
+//!CORRECCIÓN CON SWITCH

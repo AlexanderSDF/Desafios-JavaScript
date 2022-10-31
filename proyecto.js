@@ -1,4 +1,4 @@
-//! Proyecto de carrito para tienda de celulares
+//! Proyecto de carrito para tienda de notebooks
 
 let cantidadNotebooks = 0;
 let eleccionNotebook = 0;
@@ -23,6 +23,7 @@ class Notebook {
 		console.log(`El stock de ${this.nombre} ha sido actualizado`);
 	}
 }
+
 //!construcción de objetos
 const producto1 = new Notebook(
 	1,
@@ -92,35 +93,41 @@ function calcularTotal() {
 	cantidadNotebooks = parseInt(prompt(`Ingrese la cantidad de notebooks que desea comprar.`));
 	console.log(cantidadNotebooks);
 	console.log(notebookElegida.stock);
-	//!caga
+
+	//!Se agrega al carrito la cantidad Seleccionada siempre que exista en Stock
+	let agregarACarrito = addShop(notebookElegida);
+
+	//!Se calcula el Total a abonar
+	let subtotalPagar = carrito.reduce((suma, notebook) => suma + notebook.precio, 0);
+	let totalPagar = subtotalPagar * cantidadNotebooks;
+	alert(`La cantidad total a abonar es $${totalPagar},00`);
+
+	//!Funcion para actualizar el stock disponible.
+	restarAlStock(notebooksDisponibles, eleccionNotebook);
+	console.table(notebooksDisponibles);
+	calculoEnvio();
 }
-//!Se agrega al carrito la cantidad Seleccionada siempre que exista en Stock
-let agregarACarrito = addShop(notebookElegida);
 
-//!Se calcula el Total a abonar
-let subtotalPagar = carrito.reduce((suma, notebook) => suma + notebook.precio, 0);
-let totalPagar = subtotalPagar * cantidadNotebooks;
-alert(`La cantidad total a abonar es $${totalPagar},00`);
-
-//!Función para actualizar Stock
 function addShop(pc) {
 	if (cantidadNotebooks <= pc.stock) {
 		carrito.push(pc);
 	} else {
 		alert(`No hay en Stock la cantidad ingresada, vuelva a intentarlo.`);
+		cicloEleccionNotebook();
 	}
 	console.log(carrito);
 }
 
-function restarAStock(eleccionNotebook, notebookDisponibles) {
-	for (let art of notebookDisponibles) {
+function restarAlStock(eleccionNotebook, notebookDispo) {
+	for (let art of notebookDispo) {
 		if (art.id == eleccionNotebook) {
-			restarStock();
+			restarAlStock();
 		}
 	}
 }
+
 function restarStock() {
-	let nuevoStockNotebook = notebookDisponibles.map((notebook) => {
+	let nuevoStockNotebook = notebooksDisponibles.map((notebook) => {
 		return {
 			id: notebook.id,
 			nombre: notebook.nombre,

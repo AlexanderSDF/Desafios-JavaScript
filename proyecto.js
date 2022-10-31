@@ -1,12 +1,11 @@
-//! Proyecto de carrito para tienda de notebooks
-
+//! PROYECTO DE CARRITO PARA TIENDA DE NOTEBOOKS
+//!-----------------------------VARIABLES Y CONSTANTES---------------------------------------------
 let cantidadNotebooks = 0;
 let eleccionNotebook = 0;
 let acumulador = 0;
 let carrito = [];
 let notebookElegida = [];
 let nuevoStockNotebook = [];
-
 //!constructor de objetos
 class Notebook {
 	constructor(id, nombre, categoria, marca, color, precio, stock) {
@@ -18,109 +17,55 @@ class Notebook {
 		this.precio = precio;
 		this.stock = stock;
 	}
-	restaStock() {
-		this.stock = this.stock - cantidadNotebooks;
-		console.log(`El stock de ${this.nombre} ha sido actualizado`);
-	}
 }
-
 //!construcción de objetos
-const producto1 = new Notebook(
-	1,
-	`Notebook 13'`,
-	`Trabajo de Oficina`,
-	`Lenovo`,
-	`Plateado`,
-	67000,
-	10
-);
-const producto2 = new Notebook(
-	2, 
-	`Notebook 14'`, 
-	`Trabajo de Oficina`, 
-	`Asus`, 
-	`Negro`, 
-	72000, 
-	10);
-const producto3 = new Notebook(
-	3,
-	`Notebook 15'`,
-	`Trabajo Demandante`,
-	`Huawei`,
-	`Blanca`,
-	95000,
-	10
-);
-const producto4 = new Notebook(
-	4,
-	`Notebook 13'`,
-	`Trabajo Demandante`,
-	`Macbook`,
-	`Plateado`,
-	230000,
-	10
-);
-const producto5 = new Notebook(
-	5, 
-	`Notebook 14'`, 
-	`Gamer`, 
-	`Asus`, 
-	`Negro`, 
-	280000,
-	10
-);
-const producto6 = new Notebook(
-	6, 
-	`Notebook 14'`, 
-	`Gamer`, 
-	`Alienware`, 
-	`Blanco`, 
-	300000, 
-	10
-);
+const producto1 = new Notebook(1,`Notebook 13'`,`Trabajo de Oficina`,`Lenovo`,`Plateado`,67000,10);
+const producto2 = new Notebook(2, `Notebook 14'`, `Trabajo de Oficina`, `Asus`, `Negro`, 72000, 10);
+const producto3 = new Notebook(3,`Notebook 15'`,`Trabajo Demandante`,`Huawei`,`Blanca`,95000,10);
+const producto4 = new Notebook(4,`Notebook 13'`,`Trabajo Demandante`,`Macbook`,`Plateado`,230000,10);
+const producto5 = new Notebook(5, `Notebook 14'`, `Gamer`, `Asus`, `Negro`, 280000,10);
+const producto6 = new Notebook(6, `Notebook 14'`, `Gamer`, `Alienware`, `Blanco`, 300000, 10);
 const notebooksDisponibles = [producto1, producto2, producto3, producto4, producto5, producto6];
-//!Ciclo de agregar A Carrito
-cicloEleccionNotebook();
 
+//!-----------------------------CICLO DE ELECCION DEL PRODUCTO-------------------------------------
+cicloEleccionNotebook();
 function cicloEleccionNotebook() {
 	while (eleccionNotebook != undefined) {
 		eleccionNotebook = prompt(
-			`Ingrese el número del artículo de la Notebook deseado.
-
-- Artículo 1: Notebook Lenovo Thinkpad 13' apta para trabajo de oficina. - ${this.precio} 
-- Artículo 2: Notebook Asus Lite 14' apta trabajo de oficina.
-- Artículo 3: Notebook Huawei z32 15' apta trabajo demandante.
-- Artículo 4: Macbook Apple Air M1 13' apta trabajo demandante. 
-- Artículo 5: Notebook Asus Rog 14' apta para gaming.
-- Artículo 6: Notebook Alienware 14' apta para gaming.
-
-Ingrese fin para finalizar la compra.`
+			`Ingrese el número de artículo de la Notebook que desea comprar.
+- 1: Lenovo Thinkpad 13' apta para trabajo de oficina. - $${producto1.precio} 
+- 2: Asus Lite 14' apta trabajo de oficina. - $${producto2.precio}
+- 3: Huawei z32 15' apta trabajo demandante. - $${producto3.precio}
+- 4: Apple Air M1 13' apta trabajo demandante.  - $${producto4.precio}
+- 5: Asus Rog 14' apta para gaming. - $${producto5.precio}
+- 6: Alienware 14' apta para gaming. - $${producto6.precio}
+- 0: Para SALIR.`
 		);
 		notebookElegida = notebooksDisponibles.find((notebook) => notebook.id == eleccionNotebook);
-		console.log(notebookElegida);
-		//Verifica que el articulo sea valido
+		//!Verifica que el articulo sea valido
 		const verificacionArticulos = notebooksDisponibles.some(
 			(notebook) => notebook.id == eleccionNotebook
 		);
 		if (verificacionArticulos == true) {
 			alert(`El artículo es correcto.`);
 		} else {
-			alert(`Ingresó un artículo incorrecto.`);
+			alert(`Ingresó un artículo inexistente.`);
 			break;
 		}
 		let cantidadNotebookCarrito = calcularTotal();
-		alert(cantidadNotebookCarrito);
 	}
 }
+
+
+//!-------------------------------------FUNCIONES------------------------------
 //!Usuario Ingresa cantidad a comprar
 function calcularTotal() {
 	cantidadNotebooks = parseInt(prompt(`Ingrese la cantidad de notebooks que desea comprar.`));
-	console.log(cantidadNotebooks);
-	console.log(notebookElegida.stock);
+	console.log(`Cantidad de Notebooks: ${cantidadNotebooks}`);
+	console.log(`Stock de la notebook elegida: ${notebookElegida.stock}`);
 
 	//!Se agrega al carrito la cantidad Seleccionada siempre que exista en Stock
-	let agregarACarrito = addShop(notebookElegida);
-
+	let agregarACarrito = agregarAlCarrito(notebookElegida);
 	//!Se calcula el Total a abonar
 	let subtotalPagar = carrito.reduce((suma, notebook) => suma + notebook.precio, 0);
 	let totalPagar = subtotalPagar * cantidadNotebooks;
@@ -130,8 +75,7 @@ function calcularTotal() {
 	restarAlStock(notebooksDisponibles, eleccionNotebook);
 	console.table(notebooksDisponibles);
 }
-
-function addShop(pc) {
+function agregarAlCarrito(pc) {
 	if (cantidadNotebooks <= pc.stock) {
 		carrito.push(pc);
 	} else {
@@ -140,15 +84,6 @@ function addShop(pc) {
 	}
 	console.log(carrito);
 }
-
-/* function restarAlStock(eleccionNotebook, notebookDispo) {
-	for (let art of notebookDispo) {
-		if (art.id == eleccionNotebook) {
-			restarAlStock();
-		}
-	}
-} */
-
 function restarAlStock() {
 	let nuevoStockNotebook = notebooksDisponibles.map((notebook) => {
 		return {

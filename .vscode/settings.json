@@ -1,4 +1,5 @@
 {
 	"cSpell.words": ["netflix", "opcion"],
-	"cSpell.language": "en,es-ES"
+	"cSpell.language": "en,es-ES",
+	"cSpell.ignoreWords": ["eleccion"]
 }

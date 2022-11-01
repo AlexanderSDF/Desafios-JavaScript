@@ -1,100 +1,117 @@
-//! PROYECTO DE CARRITO PARA TIENDA DE NOTEBOOKS
-//!-----------------------------VARIABLES Y CONSTANTES---------------------------------------------
-let cantidadNotebooks = 0;
-let eleccionNotebook = 0;
-let acumulador = 0;
-let carrito = [];
-let notebookElegida = [];
-let nuevoStockNotebook = [];
-//!constructor de objetos
-class Notebook {
-	constructor(id, nombre, categoria, marca, color, precio, stock) {
+//!--------------------------PROYECTO TIENDA----------------------------------------------
+//Creo la clase Producto, con las propiedades id, nombre, precio y cantidad:
+class Producto {
+	constructor(id, marca, modelo, categoria, pantalla, color, precio, cantidad) {
 		this.id = id;
-		this.nombre = nombre;
-		this.categoria = categoria;
 		this.marca = marca;
+		this.modelo = modelo;
+		this.categoria = categoria;
+		this.pantalla = pantalla;
 		this.color = color;
 		this.precio = precio;
-		this.stock = stock;
+		this.disponible = disponible;
 	}
 }
-//!construcción de objetos
-const producto1 = new Notebook(1,`Notebook 13'`,`Trabajo de Oficina`,`Lenovo`,`Plateado`,67000,10);
-const producto2 = new Notebook(2, `Notebook 14'`, `Trabajo de Oficina`, `Asus`, `Negro`, 72000, 10);
-const producto3 = new Notebook(3,`Notebook 15'`,`Trabajo Demandante`,`Huawei`,`Blanca`,95000,10);
-const producto4 = new Notebook(4,`Notebook 13'`,`Trabajo Demandante`,`Macbook`,`Plateado`,230000,10);
-const producto5 = new Notebook(5, `Notebook 14'`, `Gamer`, `Asus`, `Negro`, 280000,10);
-const producto6 = new Notebook(6, `Notebook 14'`, `Gamer`, `Alienware`, `Blanco`, 300000, 10);
-const notebooksDisponibles = [producto1, producto2, producto3, producto4, producto5, producto6];
+//Creo productos y los almaceno en un array:
+const producto1 = new Producto(1, "Lenovo", "falta", "Office", "13'", "Plateado", 67000, 5);
+const producto2 = new Producto(2, "Msi", "falta", "Office", "14'", "Blanco", 72000, 5);
+const producto3 = new Producto(3, "Huawei", "falta", "Office", "15'", "Negro", 95000,5);
+const producto4 = new Producto(4, "Apple", "falta", "HardWork", "13'", "Plateado", 230000, 5);
+const producto5 = new Producto(5, "Asus", "falta", "HardWork", "14'", "Negro", 280000, 5);
+const producto6 = new Producto(6, "Alienware", "falta", "Gaming", "14'", "Blanco", 300000, 5);
+const producto7 = new Producto(7, "Lenovo", "falta", "Gaming", "15'", "Negro", 290000, 5);
+const producto8 = new Producto(8, "Asus", "falta", "Gaming", "15'", "Plateado", 315000, 5);
 
-//!-----------------------------CICLO DE ELECCION DEL PRODUCTO-------------------------------------
-cicloEleccionNotebook();
-function cicloEleccionNotebook() {
-	while (eleccionNotebook != undefined) {
-		eleccionNotebook = prompt(
-			`Ingrese el número de artículo de la Notebook que desea comprar.
-- 1: Lenovo Thinkpad 13' apta para trabajo de oficina. - $${producto1.precio} 
-- 2: Asus Lite 14' apta trabajo de oficina. - $${producto2.precio}
-- 3: Huawei z32 15' apta trabajo demandante. - $${producto3.precio}
-- 4: Apple Air M1 13' apta trabajo demandante.  - $${producto4.precio}
-- 5: Asus Rog 14' apta para gaming. - $${producto5.precio}
-- 6: Alienware 14' apta para gaming. - $${producto6.precio}
-- 0: Para SALIR.`
-		);
-		notebookElegida = notebooksDisponibles.find((notebook) => notebook.id == eleccionNotebook);
-		//!Verifica que el articulo sea valido
-		const verificacionArticulos = notebooksDisponibles.some(
-			(notebook) => notebook.id == eleccionNotebook
-		);
-		if (verificacionArticulos == true) {
-			alert(`El artículo es correcto.`);
-		} else {
-			alert(`Ingresó un artículo inexistente.`);
-			break;
-		}
-		let cantidadNotebookCarrito = calcularTotal();
-	}
-}
+const productos = [producto1, producto2, producto3, producto4, producto5, producto6, producto7, producto8];
 
+//Muestro los productos modificando el DOM.
+const contenedorProductos = document.getElementById("contenedorProductos");
 
-//!-------------------------------------FUNCIONES------------------------------
-//!Usuario Ingresa cantidad a comprar
-function calcularTotal() {
-	cantidadNotebooks = parseInt(prompt(`Ingrese la cantidad de notebooks que desea comprar.`));
-	console.log(`Cantidad de Notebooks: ${cantidadNotebooks}`);
-	console.log(`Stock de la notebook elegida: ${notebookElegida.stock}`);
-
-	//!Se agrega al carrito la cantidad Seleccionada siempre que exista en Stock
-	let agregarACarrito = agregarAlCarrito(notebookElegida);
-	//!Se calcula el Total a abonar
-	let subtotalPagar = carrito.reduce((suma, notebook) => suma + notebook.precio, 0);
-	let totalPagar = subtotalPagar * cantidadNotebooks;
-	alert(`La cantidad total a abonar es $${totalPagar},00`);
-
-	//!Funcion para actualizar el stock disponible.
-	restarAlStock(notebooksDisponibles, eleccionNotebook);
-	console.table(notebooksDisponibles);
-}
-function agregarAlCarrito(pc) {
-	if (cantidadNotebooks <= pc.stock) {
-		carrito.push(pc);
-	} else {
-		alert(`No hay en Stock la cantidad ingresada, vuelva a intentarlo.`);
-		cicloEleccionNotebook();
-	}
-	console.log(carrito);
-}
-function restarAlStock() {
-	let nuevoStockNotebook = notebooksDisponibles.map((notebook) => {
-		return {
-			id: notebook.id,
-			nombre: notebook.nombre,
-			categoria: notebook.categoria,
-			marca: notebook.marca,
-			color: notebook.color,
-			precio: notebook.precio,
-			stock: notebook.stock - cantidadNotebooks,
-		};
+productos.forEach((producto) => {
+	const divProducto = document.createElement("div");
+	divProducto.classList.add("card", "col-xl-3", "col-md-6", "col-sm-12");
+	divProducto.innerHTML = `
+                            <div>
+                                <img src="../images/${producto.id}.jpg" class="card-img-top img-fluid py-3">
+                                <div class="card-body">
+                                    <h3 class="card-title"> ${producto.marca} </h3>
+                                    <p class="card-text"> $${producto.precio} </p>
+                                    <button id="botón${producto.id}" class="btn btn-primary"> Agregar al Carrito </button>
+                                </div>
+                            </div>`;
+	contenedorProductos.appendChild(divProducto);
+	//Agregar un evento al botón de agregar al carrito:
+	const boton = document.getElementById(`botón${producto.id}`);
+	boton.addEventListener("click", () => {
+		agregarAlCarrito(producto.id);
 	});
-	console.log(nuevoStockNotebook);
+});
+
+//Creo el carrito de compras
+const carrito = [];
+
+//función que busque el producto por id y lo agregue al carrito.
+const agregarAlCarrito = (id) => {
+	const producto = productos.find((producto) => producto.id === id);
+	const productoEnCarrito = carrito.find((producto) => producto.id === id);
+	if (productoEnCarrito) {
+		productoEnCarrito.cantidad++;
+	} else {
+		carrito.push(producto);
+	}
+	actualizarCarrito();
+};
+
+//Muestro el carrito de compras modificando el DOM.
+
+const contenedorCarrito = document.getElementById("contenedorCarrito");
+const verCarrito = document.getElementById("verCarrito");
+
+verCarrito.addEventListener("click", actualizarCarrito);
+
+function actualizarCarrito() {
+	let aux = "";
+	carrito.forEach((producto) => {
+		aux += `
+                <div class="card col-xl-3 col-md-6 col-sm-12">
+                    <img src="../images/${producto.id}.jpg" class="card-img-top img-fluid py-3">
+                    <div class="card-body">
+                        <h3 class="card-title"> ${producto.nombre} </h3>
+                        <p class="card-text"> $${producto.precio} </p>
+                        <button onClick = "eliminarDelCarrito(${producto.id})" class="btn btn-primary"> Eliminar del Carrito </button>
+                    </div>
+                </div>
+                `;
+	});
+
+	contenedorCarrito.innerHTML = aux;
+	calcularTotalCompra();
 }
+
+//Agrego una función que elimine el producto del carrito:
+
+const eliminarDelCarrito = (id) => {
+	const producto = carrito.find((producto) => producto.id === id);
+	carrito.splice(carrito.indexOf(producto), 1);
+	actualizarCarrito();
+};
+
+///Función para vaciar todo el carrito por completo:
+
+const vaciarCarrito = document.getElementById("vaciarCarrito");
+vaciarCarrito.addEventListener("click", () => {
+	carrito.splice(0, carrito.length);
+	actualizarCarrito();
+});
+
+//Creo una función que me calcule el total del carrito:
+
+const totalCompra = document.getElementById("totalCompra");
+
+const calcularTotalCompra = () => {
+	let total = 0;
+	carrito.forEach((producto) => {
+		total += producto.precio * producto.cantidad;
+	});
+	totalCompra.innerHTML = total;
+};

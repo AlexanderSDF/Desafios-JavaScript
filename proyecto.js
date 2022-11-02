@@ -37,7 +37,7 @@ productos.forEach((producto) => {
                                     <h3 class="card-title"> ${producto.marca} ${producto.modelo} ${producto.pantalla}</h3>
                                     <p class="card-text"> $ ${producto.precio.toFixed(2)} </p>
 									<p class="card-text-stock"> En Stock: ${producto.disponible} </p>
-                                    <button id="botón${producto.id}" class="btn btn-primary"> Agregar al Carrito </button>
+                                    <button id="botón${producto.id}" class="btn btn-dark"> Agregar al Carrito </button>
                                 </div>
                             </div>`;
 	contenedorProductos.appendChild(divProducto);

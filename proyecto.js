@@ -14,27 +14,17 @@ class Producto {
 	}
 }
 //Creo productos y los almaceno en un array:
-const producto1 = new Producto(1, "Lenovo", "Thinkpad", "Office", "13'", "Plateado", 20000, 5);
-const producto2 = new Producto(2, "Msi", "Carbon", "Office", "14'", "Blanco", 30000, 5);
-const producto3 = new Producto(3, "Huawei", "MateBook", "Office", "15'", "Negro", 40000, 5);
-const producto4 = new Producto(4, "Apple", "Air M1", "HardWork", "13'", "Plateado", 80000, 5);
-const producto5 = new Producto(5, "Asus", "Lite", "HardWork", "14'", "Negro", 100000, 5);
-const producto6 = new Producto(6, "Alienware", "X15", "Gaming", "14'", "Blanco", 150000, 5);
-const producto7 = new Producto(7, "Msi", "Pro Carbon", "Gaming", "15'", "Negro", 290000, 5);
-const producto8 = new Producto(8, "Asus", "Rog Z96", "Gaming", "15'", "Plateado", 315000, 5);
+const producto1 = new Producto(1, "Lenovo", "Thinkpad", "Office", "13'", "Plateado", 20000.50, 5);
+const producto2 = new Producto(2, "Msi", "Prestige", "Office", "15.6'", "Blanco", 30000.50, 5);
+const producto3 = new Producto(3, "Huawei", "MateBook", "Office", "15'", "Negro", 40000.50, 5);
+const producto4 = new Producto(4, "Apple", "Air M1", "HardWork", "15'", "Plateado", 80000.50, 5);
+const producto5 = new Producto(5, "Asus", "X515", "HardWork", "14'", "Negro", 100000.50, 5);
+const producto6 = new Producto(6, "Alienware", "X15", "Gaming", "14'", "Blanco", 150000.50, 5);
+const producto7 = new Producto(7, "Msi", "Pulse", "Gaming", "17'", "Negro", 290000.50, 5);
+const producto8 = new Producto(8, "Asus", "Rog Z96", "Gaming", "15'", "Plateado", 315000.50, 5);
+const productos = [ producto1, producto2, producto3, producto4, producto5, producto6, producto7, producto8];
 
-const productos = [
-	producto1,
-	producto2,
-	producto3,
-	producto4,
-	producto5,
-	producto6,
-	producto7,
-	producto8,
-];
-
-//Muestro los productos modificando el DOM.
+//Muestra el carrito y modifica el DOM
 const contenedorProductos = document.getElementById("contenedorProductos");
 
 productos.forEach((producto) => {
@@ -45,8 +35,8 @@ productos.forEach((producto) => {
                                 <img src="./images/${producto.id}.jpg" class="card-img-top img-fluid py-3">
                                 <div class="card-body">
                                     <h3 class="card-title"> ${producto.marca} ${producto.modelo} ${producto.pantalla}</h3>
-                                    <p class="card-text"> $ ${producto.precio} </p>
-									<p class="card-text"> En Stock: ${producto.disponible} </p>
+                                    <p class="card-text"> $ ${producto.precio.toFixed(2)} </p>
+									<p class="card-text-stock"> En Stock: ${producto.disponible} </p>
                                     <button id="botón${producto.id}" class="btn btn-primary"> Agregar al Carrito </button>
                                 </div>
                             </div>`;
@@ -72,11 +62,10 @@ const agregarAlCarrito = (id) => {
 		carrito.push(producto);
 	}
 	actualizarCarrito();
-	verificarDisponible();
 };
 
 
-//todo Verificar cantidad en sotck
+//todo Verificar cantidad en stock
 function verificarDisponible(producto) {
 	if (compra <= producto.disponible) {
 	console.log(`La cantidad de notebooks compradas es de: ${compra}`);
@@ -101,7 +90,7 @@ function actualizarCarrito() {
                     <img src="../images/${producto.id}.jpg" class="card-img-top img-fluid py-3">
                     <div class="card-body">
                         <h3 class="card-title"> ${producto.marca} </h3>
-                        <p class="card-text"> $ ${producto.precio} </p>
+                        <p class="card-text"> $ ${producto.precio.toFixed(2)} </p>
                         <button onClick = "eliminarDelCarrito(${producto.id})" class="btn btn-primary"> Eliminar del Carrito </button>
                     </div>
                 </div>
@@ -136,5 +125,5 @@ const calcularTotalCompra = () => {
 	carrito.forEach((producto) => {
 		total += producto.precio * producto.compra;
 	});
-	totalCompra.innerHTML = total;
+	totalCompra.innerHTML = total.toFixed(2);
 };

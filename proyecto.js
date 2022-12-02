@@ -116,7 +116,7 @@ vaciarCarrito.addEventListener("click", () => {
 	actualizarCarrito();
 });
 
-//Función que calcula el total del carrito:
+//Función que calcula el total del carrito
 
 const totalCompra = document.getElementById("totalCompra");
 

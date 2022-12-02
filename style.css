@@ -13,6 +13,7 @@ body {
 .header {
 	background-image: linear-gradient(90deg, black 0%, #282828 50%, black 100%); 
 }
+
 nav {
 	display: flex;
 	flex-wrap: wrap;
